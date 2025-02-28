@@ -1,0 +1,58 @@
+# 忽略 Git 目录
+.git
+
+# 忽略模型目录
+model/
+
+# 忽略 Python 编译文件
+*.pyc
+
+# 忽略预训练模型目录
+pretrain_models/
+
+# 忽略测试输出目录
+test_out/
+
+# 忽略 PyTorch 模型文件
+*.pt
+
+# 忽略压缩的 PyTorch 模型文件
+*.pt.gz
+
+# 忽略部分下载的压缩 PyTorch 模型文件
+*.pt.gz.part
+
+# 忽略 VSCode 配置目录
+.vscode/
+
+# 忽略 IntelliJ IDEA 配置目录
+.idea/
+
+# 忽略 macOS 系统文件
+.DS_Store
+
+# 忽略数据集目录
+dataset/
+
+# 忽略日志目录
+logs/
+
+# 忽略临时文件目录
+tmp/
+
+# 忽略缓存目录
+cache/
+
+# 忽略压缩文件
+*.tar.gz
+*.tar.gz.part
+*.tar.gz.part.part
+
+# 忽略 SimulEval 目录
+SimulEval/
+
+# 忽略 fairseq 目录
+fairseq/
+
+tools/
+
