@@ -12,12 +12,15 @@ from typing import Optional, Tuple
 
 import pandas as pd
 import torchaudio
-import soundfile as sf
+# 设置默认后端为 FFmpeg（推荐）
+torchaudio.set_audio_backend("soundfile")  # 或 "sox"
+
 from torch import Tensor
 from torch.utils.data import Dataset
 from torchaudio.datasets.utils import download_url, extract_archive
 from tqdm import tqdm
 import numpy as np
+import os
 
 from fairseq.data.audio.audio_utils import convert_waveform
 
@@ -145,26 +148,33 @@ class CoVoST(Dataset):
         covost_tsv = load_df_from_tsv(
             self.root / Path(covost_url).name.replace(".tar.gz", "")
         )
+        print("合并CVSS和COVOST数据中...")
         df = pd.merge(
             left=cv_tsv[["path", "sentence", "client_id"]],
             right=covost_tsv[["path", "translation", "split"]],
             how="inner",
             on="path",
         )
+        print("合并完成。")
         if split == "train":
             df = df[(df["split"] == split) | (df["split"] == f"{split}_covost")]
         else:
             df = df[df["split"] == split]
         data = df.to_dict(orient="index").items()
         data = [v for k, v in sorted(data, key=lambda x: x[0])]
+        print(f"合并后长度：{len(data)}")
+
         self.data = []
+        print("验证合并数据有效性...")
         for e in data:
-            try:
+            # try:
                 path = self.root / "clips" / e["path"]
-                _ = torchaudio.info(path.as_posix())
+                # _ = torchaudio.info(path.as_posix()) 
                 self.data.append(e)
-            except RuntimeError:
-                pass
+            # except RuntimeError:
+            #     pass
+        print("验证完成。")
+        print(f"covost有效数据：{len(self.data)}")
 
     def __getitem__(
         self, n: int
@@ -209,12 +219,12 @@ class CVSS_C(CoVoST):
             target_data = f.read().splitlines()
             target_data = [x.split("\t") for x in target_data]
             target_dict = {k: v for k, v in target_data}
-        
         self.s2s_data = []
         for e in self.data:
             if e["path"] in target_dict:
                 e["translation"] = target_dict[e["path"]]
                 self.s2s_data.append(e)
+        print(f"cvss数据：{len(self.s2s_data)}")
     
     def __getitem__(
         self, n: int
@@ -263,13 +273,14 @@ def process(args):
             cvss_root = Path(args.cvss_data_root) / f"{src_lang}-en"
             if not covost_root.is_dir():
                 raise NotADirectoryError(f"{covost_root} does not exist")
+                # os.makedirs(covost_root,exist_ok=True)
             if not cvss_root.is_dir():
                 raise NotADirectoryError(f"{cvss_root} does not exist")
             
             print(f"Extracting source audio/features for {src_lang}-en...")
-            for split in ["dev", "test"]:
+            for split in ["train","dev","test"]:
                 dataset = CVSS_C(cvss_root, covost_root, split, src_lang, "en")
-                
+                print(f"数据集{split}内有信息：{len(dataset)}条。")
                 
                 gcmvn_feature_list = []
                 for waveform, sample_rate, _, _, _, _, _, utt_id in tqdm(dataset):
@@ -294,7 +305,7 @@ def process(args):
 
         print("ZIPing source audios/features...")
         create_zip(source_root, source_zip_path)
-        shutil.rmtree(source_root)
+        # shutil.rmtree(source_root)
     
 
 

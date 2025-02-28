@@ -1,8 +1,9 @@
 CHUNK_SIZE=32  #32 stands for 320ms
 
-CVSS_ROOT=path_to_your_data
-CHECKPOINT_DIR=path_to_save_your_checkpoint
-NAST_DIR=path_to_nast_dir
+CVSS_ROOT=/data/yunlong/NAST-S2x/dataset/cvss/cvss-c/fr-en/fbank2unit
+CHECKPOINT_DIR=./model/my
+NAST_DIR=./nast
+CONFIG_PATH=./config/config.yaml
 
 fairseq-train ${CVSS_ROOT} \
     --config-yaml config.yaml --train-subset train --valid-subset dev \
@@ -21,7 +22,7 @@ fairseq-train ${CVSS_ROOT} \
     --lr 0.001 --lr-scheduler inverse_sqrt \
     --warmup-init-lr '1e-07' --warmup-updates 10000 \
     --stop-min-lr '1e-09' --max-update 150000 \
-    --max-tokens 40000 --update-freq 4 --grouped-shuffling \
+    --max-tokens 50000 --update-freq 4 --grouped-shuffling \
     --save-dir ${CHECKPOINT_DIR} \
     --ddp-backend=legacy_ddp \
     --no-progress-bar --log-format json --log-interval 100 \
@@ -32,4 +33,4 @@ fairseq-train ${CVSS_ROOT} \
     --validate-interval 1000 --validate-interval-updates 2000 \
     --eval-bleu --eval-bleu-args '{"iter_decode_max_iter": 0, "iter_decode_with_beam": 1}' \
     --eval-bleu-print-samples \
-    --num-workers 8
+    --num-workers 12

@@ -3,7 +3,6 @@ import logging
 import numpy as np
 from dataclasses import dataclass
 from typing import Dict, List, Optional, Tuple, Union
-
 from fairseq.data import data_utils as fairseq_data_utils
 from fairseq.data import ConcatDataset, Dictionary, FairseqDataset
 from fairseq.data.audio.speech_to_text_dataset import (
@@ -11,10 +10,20 @@ from fairseq.data.audio.speech_to_text_dataset import (
     _is_int_or_np_int,
     SpeechToTextDatasetCreator,
 )
+
+
 from fairseq.data.audio.audio_utils import get_features_or_waveform
 from fairseq.data.audio.feature_transforms import CompositeAudioFeatureTransform
 from fairseq.data.audio.waveform_transforms import CompositeAudioWaveformTransform
 from fairseq.data.audio.data_cfg import S2SDataConfig
+
+
+
+# import debugpy
+# 在端口 5678 启动调试器，等待客户端连接
+# debugpy.connect(5678)
+
+
 
 logger = logging.getLogger(__name__)
 
@@ -323,7 +332,7 @@ class NATSpeechToUnitDataset(FairseqDataset):
 
 class NATSpeechToUnitDatasetCreator(object):
     # mandatory columns
-    KEY_ID, KEY_SRC_AUDIO, KEY_SRC_N_FRAMES = "id", "audio", "n_frames"
+    KEY_ID, KEY_SRC_AUDIO, KEY_SRC_N_FRAMES = "id", "src_audio", "src_n_frames"
     KEY_TGT_AUDIO, KEY_TGT_N_FRAMES = "tgt_audio", "tgt_n_frames"
     # optional columns
     KEY_TGT_TEXT = "tgt_text"

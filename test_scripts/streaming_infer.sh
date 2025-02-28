@@ -1,14 +1,18 @@
-CVSS_ROOT=path_to_your_data
+CVSS_ROOT=/data04/Sxd_Grp/SxdStu96/zyl/dataset/cvss/cvss-c/fr-en
 
 VOCODER_CKPT=${CVSS_ROOT}/vocoder/mhubert_lyr11_km1000_en/g_00500000
 VOCODER_CFG=${CVSS_ROOT}/vocoder/mhubert_lyr11_km1000_en/config.json
 
 CHUNK_SIZE=32  #This is an example, should be modified according to your model
-CKPT_PATH=path_to_your_model #This is the path to your checkpoint
-OUT_ROOT=path_to_your_output
-NAST_DIR=path_to_nast_dir  #This is the path of our provided nast as a plugin to Fairseq
+CKPT_PATH=/data04/Sxd_Grp/SxdStu96/zyl/NAST-S2x/model/chunk_320ms.pt #This is the path to your checkpoint
+OUT_ROOT=/data04/Sxd_Grp/SxdStu96/zyl/NAST-S2x/test_out/stream
+NAST_DIR=/data04/Sxd_Grp/SxdStu96/zyl/NAST-S2x/nast  #This is the path of our provided nast as a plugin to Fairseq
 
 SEGMENT_SIZE=${CHUNK_SIZE}0
+
+# 加载examples文件
+FAIRSEQ_DIR=$(pip list -v | grep 'fairseq' | awk '{print $3}')
+export PYTHONPATH=$PYTHONPATH:$FAIRSEQ_DIR
 
 simuleval \
     --data-bin ${CVSS_ROOT} \

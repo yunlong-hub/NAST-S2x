@@ -25,6 +25,10 @@ from fairseq.logging import progress_bar
 from fairseq.logging.meters import StopwatchMeter, TimeMeter
 
 
+import debugpy
+# 在端口 5678 启动调试器，等待客户端连接
+# debugpy.connect(5678)
+
 def main(cfg: DictConfig):
 
     if isinstance(cfg, Namespace):

@@ -1,0 +1,31 @@
+
+bpe_tokenizer:
+  bpe: sentencepiece
+  sentencepiece_model: ./dataset/cvss/fr-en/fbank2unit/spm_unigram10000.model
+global_cmvn:
+  stats_npz_path: ./dataset/CVSS/fr-en/gcmvn.npz
+input_channels: 1
+input_feat_per_channel: 80
+specaugment:
+  freq_mask_F: 27
+  freq_mask_N: 1
+  time_mask_N: 1
+  time_mask_T: 100
+  time_mask_p: 1.0
+  time_wrap_W: 0
+transforms:
+  '*':
+  - global_cmvn
+  _train:
+  - global_cmvn
+  - specaugment
+vocab_filename: spm_unigram10000.txt
+vocoder:
+  checkpoint: ./dataset/CVSS/fr-en/vocoder/mhubert_lyr11_km1000_en/g_00500000
+  config: ./dataset/CVSS/fr-en/vocoder/mhubert_lyr11_km1000_en/config.json
+  type: code_hifigan
+
+vocab_filename_src: spm_unigram10000.txt
+bpe_tokenizer_src:
+  bpe: sentencepiece
+  sentencepiece_model: ./dataset/CVSS/fr-en/fbank2unit/spm_unigram10000.model

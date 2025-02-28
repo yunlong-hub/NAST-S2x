@@ -76,9 +76,9 @@ bpe_tokenizer_src:
 
 For the ```src_fbank80.zip``` file, use [this script](https://github.com/ictnlp/NAST-S2x/blob/main/preprocessing/prep_fbank.py) to create it. Below, we provide a sample for its usage.
 ```
-$covost2_data_root=yourpath
-$cvssc_data_root=yourpath
-$output_root=yourpath
+$covost2_data_root=/workspace/zyl/dataset/covost2
+$cvssc_data_root=/workspace/zyl/dataset/cvss
+$output_root=/workspace/zyl/dataset/cvss/fr-en
 
 python prep_fbank.py \
     --covost-data-root $covost2_data_root \
