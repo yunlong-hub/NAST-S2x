@@ -32,7 +32,7 @@ test_out/
 .DS_Store
 
 # 忽略数据集目录
-dataset/
+dataset
 
 # 忽略日志目录
 logs/
@@ -52,7 +52,13 @@ cache/
 SimulEval/
 
 # 忽略 fairseq 目录
-fairseq/
+fairseq
 
 tools/
+
+*.log
+
+*.sh
+
+*.yaml
 
