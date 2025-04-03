@@ -52,7 +52,7 @@ cache/
 SimulEval/
 
 # 忽略 fairseq 目录
-fairseq
+fairseq/
 
 tools/
 
