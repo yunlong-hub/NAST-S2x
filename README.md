@@ -12,7 +12,7 @@
 Chunk Size 320ms            |  Chunk Size 2560ms |  Offline
 :-------------------------:|:-------------------------: |:-------------------------:
 <video src="https://github.com/ictnlp/NAST-S2x/assets/43530347/52f2d5c4-43ad-49cb-844f-09575ef048e0" width="100"></video>  |  <video src="https://github.com/ictnlp/NAST-S2x/assets/43530347/56475dee-1649-40d9-9cb6-9fe033f6bb32"></video> | <video src="https://github.com/ictnlp/NAST-S2x/assets/43530347/b6fb1d09-b418-45f0-84e9-e6ed3a2cea48"></video>
-
+sd
 Source Speech Transcript            |  Reference Text Translation
 :-------------------------:|:-------------------------:
 Avant la fusion des communes, Rouge-Thier faisait partie de la commune de Louveigné.| before the fusion of the towns rouge thier was a part of the town of louveigne

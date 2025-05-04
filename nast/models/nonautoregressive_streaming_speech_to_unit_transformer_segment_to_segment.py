@@ -111,6 +111,14 @@ class S2UNATransformerModel(NATransformerModel):
             metavar="STR",
             help="model to take text decoder weights from (for initialization)",
         )
+        parser.add_argument(
+            "--use_convex_unit",
+            type=bool,
+            default=False,
+            help="use convex unit loss ,是否使用凸函数修改过的 CTC 损失计算方式。",
+        )
+        
+        
     
     
     def forward(

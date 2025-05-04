@@ -1,0 +1,14 @@
+{
+    "exclude": [
+      "**/node_modules",
+      "**/__pycache__",
+      "**/.git",
+      "**/.vscode",
+      "**/data",
+      "**/dataset",
+      "**/logs",
+      "**/experiments",
+      "*checkpoint*",
+      "**/*.pt"
+    ]
+  }

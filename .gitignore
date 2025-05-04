@@ -10,8 +10,6 @@ model/
 # 忽略预训练模型目录
 pretrain_models/
 
-# 忽略测试输出目录
-test_out/
 
 # 忽略 PyTorch 模型文件
 *.pt
@@ -52,7 +50,7 @@ cache/
 SimulEval/
 
 # 忽略 fairseq 目录
-fairseq
+fairseq/
 
 tools/
 
@@ -62,3 +60,8 @@ tools/
 
 *.yaml
 
+*.pt
+
+checkpoints/
+
+dataset/
